@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            color: #28a745; /* Slightly darker green */
+            font-size: 2.8em; /* Slightly larger heading */
+            margin-top: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 12px 25px; /* Increased padding for better size */
+            border-radius: 5px;
+            margin: 20px 0;
+            display: inline-block;
+            font-size: 1.2em; /* Slightly larger font */
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        table {
+            width: 85%; /* Increased table width */
+            margin: 30px auto;
+            border-collapse: collapse;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures rounded corners */
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Lighter color for even rows */
+        }
+
+        tr:hover {
+            background-color: #e0e0e0; /* Slightly darker on hover */
+        }
+
+        td a {
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 0 8px;
+            color: white;
+            background-color: #007BFF;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        td a:hover {
+            background-color: #0056b3;
+        }
+
+        .confirm-delete {
+            background-color: #dc3545;
+        }
+
+        .confirm-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<h2>User List</h2>
+<a th:href="@{/addUser}">Add User</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+            <a th:href="@{/updateUser/{id}(id=${user.id})}">Edit</a>
+            <a th:href="@{/delete/{id}(id=${user.id})}"
+               th:onclick="return confirm('Are you sure you want to delete this user?')" class="confirm-delete">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
